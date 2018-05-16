@@ -69,7 +69,7 @@ if __name__ == "__main__":
     del frame
 
     # 正解ラベルを生成
-    names = list(sorted(selected_frame["name"].values))
+    names = list(sorted(selected_frame["name"].unique()))
     selected_frame["label"] = selected_frame["name"].map({name: i for i, name in enumerate(names)})
     print("Saving data ...")
     selected_frame.to_csv("test.csv")
@@ -80,8 +80,6 @@ if __name__ == "__main__":
                     target=selected_frame["label"],
                     feature_names=["sent"],
                     target_names=names)
-
-    import pickle
 
     print("Saving dataset ...")
     pickle.dump(dataset, open("dataset.pkl", "wb"))
