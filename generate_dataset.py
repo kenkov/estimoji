@@ -76,8 +76,8 @@ if __name__ == "__main__":
     print("Saving data ... done")
 
     # データセットを作成
-    dataset = Bunch(data=selected_frame["sent"],
-                    target=selected_frame["label"],
+    dataset = Bunch(data=selected_frame["sent"].values,
+                    target=selected_frame["label"].values,
                     feature_names=["sent"],
                     target_names=names)
 

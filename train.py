@@ -15,6 +15,7 @@ class Tokenizer:
 
 if __name__ == "__main__":
     import pandas as pd
+    import pickle
 
     from sklearn.feature_extraction.text import CountVectorizer
     from sklearn.linear_model import LogisticRegression
@@ -22,23 +23,32 @@ if __name__ == "__main__":
     from sklearn.model_selection import train_test_split
     from sklearn.pipeline import Pipeline
 
-    frame = pd.read_table("test.csv", sep=",")
+    # load dataet
+    dataset = pickle.load(open("dataset.pkl", "rb"))
 
-    X = frame["sent"]
-    y = frame["name"]
-
+    # split train/test dataset
+    X, y = dataset.data, dataset.target
     X_train, X_test, y_train, y_test = train_test_split(X, y)
-    print(X_train.head())
-    print(y_train.head())
+    print("Dataset size: {}, train: {}, test: {}".format(X.shape[0], X_train.shape[0], X_test.shape[0]))
 
+    # prepare tokenizer
     tokenizer = Tokenizer()
 
-    pipe = Pipeline([("vectorizer", CountVectorizer(tokenizer=tokenizer.tokenize)),
-                     ("logistic", LogisticRegression)])
-    params = {"logistic__C": [0.01, 0.1, 1, 10, 100]}
+    # create pipeline
+    pipe = Pipeline([("vectorizer", CountVectorizer()), 
+                     ("logistic", LogisticRegression())])
+    params = {"vectorizer__tokenizer": [tokenizer.tokenize],
+              "logistic__C": [0.01, 0.1, 1, 10, 100]}
     grid = GridSearchCV(pipe, param_grid=params)
     print("training ...")
     grid.fit(X_train, y_train)
     print("training ... done")
+    print("Best parameter: {}".format(grid.best_params_))
+    print(pd.DataFrame(grid.cv_results_))
     print("Train score: {}".format(grid.score(X_train, y_train)))
-    print("Test score: {}".format(grid.score(X_test, _y_test)))
+
+    # final model
+    print("Training best model")
+    grid.fit(X_train, y_train)
+    grid.score(X_test, y_test)
+    print("Test score: {}".format(grid.score(X_test, y_test)))
