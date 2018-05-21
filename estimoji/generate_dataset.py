@@ -18,9 +18,7 @@ def generate(out, csv=None, stats=None):
         stats (str): 絵文字の頻度情報を保存するファイル名。指定しなければ保存されない
     """
     # 学習に使う絵文字リストをロード
-    emoji_id_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                 "emoji_id.txt")
-    emoji_id = load_emoji_id(emoji_id_file)
+    emoji_id = load_emoji_id()
 
     # 学習データのロード
     items = []

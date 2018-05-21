@@ -3,9 +3,17 @@
 
 
 import emoji
+import os
 
 
-def load_emoji_id(filename):
+class Tokenizer:
+    def tokenize(self, text):
+            return text.split(" ")
+
+
+def load_emoji_id():
+    filename = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                            "emoji_id.txt")
     emoji_id = dict()
     with open(filename) as f:
         for i, line in enumerate(f):
