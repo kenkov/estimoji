@@ -55,7 +55,7 @@ def generate(out, csv=None, stats=None):
     target_names = [emoji for emoji, id_ in
                     sorted(emoji_id.items(), key=lambda item: item[1])]
     dataset = Bunch(data=frame["sent"].values,
-                    target=frame["label"].values,
+                    target=frame["emoji"].values,
                     feature_names=["sent"],
                     target_names=target_names)
 

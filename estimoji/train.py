@@ -24,6 +24,7 @@ def train(dataset, out, random_state=0):
 
     # split train/test dataset
     X, y = dataset.data[:100], dataset.target[:100]
+    print(y)
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=random_state)
     print("Dataset size: {}, train: {}, test: {}".format(X.shape[0],
                                                          X_train.shape[0],

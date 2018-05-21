@@ -24,10 +24,12 @@ def estimate(model):
     pipe = load_model(model)
     for line in sys.stdin:
         text = line.strip("\n")
-        res = pipe.predict_proba([text])
-        print(res)
-        # name = dataset.target_names[res[0]]
-        # print(emoji.EMOJI_UNICODE[name])
+        probs = pipe.predict_proba([text])[0]
+        sorted_res = sorted(zip(probs, pipe.classes_),
+                            key=lambda item: item[0],
+                            reverse=True)
+        for prob, emoji in list(sorted_res)[:5]:
+            print("{:.4f} {}".format(prob, emoji))
 
 
 if __name__ == "__main__":
