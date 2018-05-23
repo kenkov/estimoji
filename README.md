@@ -40,3 +40,19 @@ Python 3.6.0 で動作確認しています。対応のPythonをインストー�
     0.0687 💖
     0.0615 🙂
 
+
+### コードからの利用
+
+`estimoji.model.load_model` で scikit-learn の Estimator をロードして使います。
+
+    >>> from estimoji.model import load_model
+    >>> model = load_model("baseline/model.pk")
+    >>> text = "絵文字 を 推定 し ます"
+    >>> model.predict([text])
+    array(['😊'], dtype=object)
+    >>> list(zip(model.classes_, model.predict_proba([text])[0]))[:5]
+    [('☔', 8.2845765559201167e-05),
+     ('☹', 1.978231655166077e-06),
+     ('☺', 0.00051007152524201315),
+     ('♥', 0.0010444626623881271),
+     ('✊', 0.00017314542464209174)]
