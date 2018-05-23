@@ -14,7 +14,7 @@ Python 3.6.0 で動作確認しています。対応のPythonをインストー�
 
 ### 学習データの作成
 
-    $ echo "ありがとう。🙏そのうち行こうか😊" | mecab -O wakati | python -m estimoji.generate_dataset --out dataset.pkl --csv dataset.csv
+    $ echo "ありがとう。🙏そのうち行こうか😊" | mecab -O wakati | python -m estimoji.transform --out dataset.pkl --csv dataset.csv
     Data size: 2, after filtering: 2
     Saving data in dataset.csv ...
     Saving data in dataset.csv ... done
@@ -27,4 +27,16 @@ Python 3.6.0 で動作確認しています。対応のPythonをインストー�
 
 ### 学習
 
-    $ python -m estimoji.train --dataset dataset.pkl --out model.pkl
+    $ python -m estimoji.fit --dataset dataset.pkl --out model.pkl
+
+### 推論
+
+入力した文の文末に付与されそうな絵文字を確率付きで上位 5 つ出力します。
+
+    $ echo "絵文字を推定します！" | mecab -Owakati | python -m estimoji.predict --model baseline/model.pkl
+    0.2140 😊
+    0.2106 🐰
+    0.0721 😔
+    0.0687 💖
+    0.0615 🙂
+
