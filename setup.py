@@ -10,7 +10,7 @@ setup(
     package_data={"estimoji": ["meoji_id.txt"]},
     install_requires=[
         "emoji==0.5.0",
-        "scikit-learn==0.19.2"
+        "scikit-learn",
         ],
     version="0.1.0",
     author="kenkov",
