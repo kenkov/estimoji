@@ -8,6 +8,7 @@ setup(
     name="estimoji",
     packages=["estimoji"],
     package_data={"estimoji": ["meoji_id.txt"]},
+    install_requires=["emoji==0.5.0"],
     version="0.1.0",
     author="kenkov",
     author_email="kenkovtan@gmail.com",
